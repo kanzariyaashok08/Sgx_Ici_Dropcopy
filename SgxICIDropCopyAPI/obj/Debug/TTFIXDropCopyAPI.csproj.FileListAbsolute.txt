@@ -1,0 +1,5 @@
+D:\MyWork\TTFIXDropCopy\TTFIXDropCopyAPI\TTFIXDropCopyAPI\obj\Debug\TTFIXDropCopyAPI.csproj.CoreCompileInputs.cache
+D:\MyWork\TTFIXDropCopy\TTFIXDropCopyAPI\TTFIXDropCopyAPI\bin\Debug\TTFIXDropCopyAPI.dll
+D:\MyWork\TTFIXDropCopy\TTFIXDropCopyAPI\TTFIXDropCopyAPI\bin\Debug\TTFIXDropCopyAPI.pdb
+D:\MyWork\TTFIXDropCopy\TTFIXDropCopyAPI\TTFIXDropCopyAPI\obj\Debug\TTFIXDropCopyAPI.dll
+D:\MyWork\TTFIXDropCopy\TTFIXDropCopyAPI\TTFIXDropCopyAPI\obj\Debug\TTFIXDropCopyAPI.pdb

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EA86654B-519E-4F3E-A8E0-868271AB99A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SgxICIDropCopy</RootNamespace>
+    <AssemblyName>SgxICIDropCopy</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\DataProcess.cs" />
+    <Compile Include="API\FixConst.cs" />
+    <Compile Include="API\iDataInterface.cs" />
+    <Compile Include="API\MessageHeader.cs" />
+    <Compile Include="DropCopyMsg\ExecutionReport.cs" />
+    <Compile Include="DropCopyMsg\OrderCancelReject.cs" />
+    <Compile Include="DropCopyMsg\OrderStatusRequest.cs" />
+    <Compile Include="DropCopyMsg\TradeCaptureReport.cs" />
+    <Compile Include="DropCopyMsg\TradeCaptureReportAck.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="API\FIXTAG.cs" />
+    <Compile Include="RepeatingGrp\LegInstrumentGrp.cs" />
+    <Compile Include="RepeatingGrp\PartiesGroup.cs" />
+    <Compile Include="SessionMsg\Heartbeat.cs" />
+    <Compile Include="SessionMsg\Logon.cs" />
+    <Compile Include="SessionMsg\Logout.cs" />
+    <Compile Include="SessionMsg\News.cs" />
+    <Compile Include="SessionMsg\ResendRequest.cs" />
+    <Compile Include="SessionMsg\SequenceReset.cs" />
+    <Compile Include="SessionMsg\SessionLevelReject.cs" />
+    <Compile Include="SessionMsg\TestRequest.cs" />
+    <Compile Include="API\FIXEnum.cs" />
+    <Compile Include="API\FIXMessageType.cs" />
+    <Compile Include="API\FIXMethods.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
