@@ -31,12 +31,12 @@ namespace SgxICIDropCopyAdapter.DataHandler
             }
 
         }
-        object lockInsertOrderdata = new object();
+
         public void InsertOrderdata(ExecutionReport report)
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("InsertOrderTrade", con);
+                SqlCommand cmd = new SqlCommand("IOSGXICIDropCopyTable", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@CFICode", report.CFICode == null ? String.Empty : report.CFICode);
@@ -73,17 +73,29 @@ namespace SgxICIDropCopyAdapter.DataHandler
                 cmd.Parameters.AddWithValue("@SettlType", report.SettlType == null ? String.Empty : report.SettlType);
 
                 cmd.Parameters.AddWithValue("@NoPartyIDs", report.NoPartyIDs);
-                if (report.NoPartyIDs > 0)
+                if (report.NoPartyIDs >= 1)
                 {
-                    cmd.Parameters.AddWithValue("@PartyID", report.arrPartiesGroup[0].PartyID == null ? String.Empty : report.arrPartiesGroup[0].PartyID);
-                    cmd.Parameters.AddWithValue("@PartyIDSource", report.arrPartiesGroup[0].PartyIdSource == '\0' ? string.Empty : report.arrPartiesGroup[0].PartyIdSource.ToString());
-                    cmd.Parameters.AddWithValue("@PartyRole", report.arrPartiesGroup[0].PartyRole);
+                    cmd.Parameters.AddWithValue("@PartyID1", report.arrPartiesGroup[0].PartyID == null ? String.Empty : report.arrPartiesGroup[0].PartyID);
+                    cmd.Parameters.AddWithValue("@PartyIDSource1", report.arrPartiesGroup[0].PartyIdSource == '\0' ? string.Empty : report.arrPartiesGroup[0].PartyIdSource.ToString());
+                    cmd.Parameters.AddWithValue("@PartyRole1", report.arrPartiesGroup[0].PartyRole);
                 }
-                else
+                if (report.NoPartyIDs >= 2)
                 {
-                    cmd.Parameters.AddWithValue("@PartyID", string.Empty);
-                    cmd.Parameters.AddWithValue("@PartyIDSource", string.Empty);
-                    cmd.Parameters.AddWithValue("@PartyRole", string.Empty);
+                    cmd.Parameters.AddWithValue("@PartyID2", report.arrPartiesGroup[1].PartyID == null ? String.Empty : report.arrPartiesGroup[1].PartyID);
+                    cmd.Parameters.AddWithValue("@PartyIDSource2", report.arrPartiesGroup[1].PartyIdSource == '\0' ? string.Empty : report.arrPartiesGroup[1].PartyIdSource.ToString());
+                    cmd.Parameters.AddWithValue("@PartyRole2", report.arrPartiesGroup[1].PartyRole);
+                }
+                if (report.NoPartyIDs >= 3)
+                {
+                    cmd.Parameters.AddWithValue("@PartyID3", report.arrPartiesGroup[2].PartyID == null ? String.Empty : report.arrPartiesGroup[2].PartyID);
+                    cmd.Parameters.AddWithValue("@PartyIDSource3", report.arrPartiesGroup[2].PartyIdSource == '\0' ? string.Empty : report.arrPartiesGroup[2].PartyIdSource.ToString());
+                    cmd.Parameters.AddWithValue("@PartyRole3", report.arrPartiesGroup[2].PartyRole);
+                }
+                if (report.NoPartyIDs >= 4)
+                {
+                    cmd.Parameters.AddWithValue("@PartyID4", report.arrPartiesGroup[3].PartyID == null ? String.Empty : report.arrPartiesGroup[3].PartyID);
+                    cmd.Parameters.AddWithValue("@PartyIDSource", report.arrPartiesGroup[3].PartyIdSource == '\0' ? string.Empty : report.arrPartiesGroup[3].PartyIdSource.ToString());
+                    cmd.Parameters.AddWithValue("@PartyRole", report.arrPartiesGroup[3].PartyRole);
                 }
 
 
@@ -106,7 +118,7 @@ namespace SgxICIDropCopyAdapter.DataHandler
                     cmd.Parameters.AddWithValue("@LegMaturityDate1", report.legInstrumentGrps[0].LegMaturityDate == null ? String.Empty : report.legInstrumentGrps[0].LegMaturityDate);
                     cmd.Parameters.AddWithValue("@LegStrikePrice1", report.legInstrumentGrps[0].LegStrikePrice);
                     cmd.Parameters.AddWithValue("@LegSecurityExchange1", report.legInstrumentGrps[0].LegSecurityExchange == null ? String.Empty : report.legInstrumentGrps[0].LegSecurityExchange);
-                    cmd.Parameters.AddWithValue("@LegSymbol1", report.legInstrumentGrps[0].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[0].LegSide.ToString());
+                    cmd.Parameters.AddWithValue("@LegSide1", report.legInstrumentGrps[0].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[0].LegSide.ToString());
                     cmd.Parameters.AddWithValue("@LegPutOrCall1", report.legInstrumentGrps[0].LegPutOrCall);
                     cmd.Parameters.AddWithValue("@LegOrderQty1", report.legInstrumentGrps[0].LegOrderQty);
                     cmd.Parameters.AddWithValue("@LegRefID1", report.legInstrumentGrps[0].LegRefID == null ? String.Empty : report.legInstrumentGrps[0].LegRefID);
@@ -120,7 +132,7 @@ namespace SgxICIDropCopyAdapter.DataHandler
                     cmd.Parameters.AddWithValue("@LegMaturityDate2", report.legInstrumentGrps[1].LegMaturityDate == null ? String.Empty : report.legInstrumentGrps[1].LegMaturityDate);
                     cmd.Parameters.AddWithValue("@LegStrikePrice2", report.legInstrumentGrps[1].LegStrikePrice);
                     cmd.Parameters.AddWithValue("@LegSecurityExchange2", report.legInstrumentGrps[1].LegSecurityExchange == null ? String.Empty : report.legInstrumentGrps[1].LegSecurityExchange);
-                    cmd.Parameters.AddWithValue("@LegSymbol2", report.legInstrumentGrps[1].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[1].LegSide.ToString());
+                    cmd.Parameters.AddWithValue("@LegSide2", report.legInstrumentGrps[1].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[1].LegSide.ToString());
                     cmd.Parameters.AddWithValue("@LegPutOrCall2", report.legInstrumentGrps[1].LegPutOrCall);
                     cmd.Parameters.AddWithValue("@LegOrderQty2", report.legInstrumentGrps[1].LegOrderQty);
                     cmd.Parameters.AddWithValue("@LegRefID2", report.legInstrumentGrps[1].LegRefID == null ? String.Empty : report.legInstrumentGrps[1].LegRefID);
@@ -135,7 +147,7 @@ namespace SgxICIDropCopyAdapter.DataHandler
                     cmd.Parameters.AddWithValue("@LegMaturityDate3", report.legInstrumentGrps[2].LegMaturityDate == null ? String.Empty : report.legInstrumentGrps[2].LegMaturityDate);
                     cmd.Parameters.AddWithValue("@LegStrikePrice3", report.legInstrumentGrps[2].LegStrikePrice);
                     cmd.Parameters.AddWithValue("@LegSecurityExchange3", report.legInstrumentGrps[2].LegSecurityExchange == null ? String.Empty : report.legInstrumentGrps[2].LegSecurityExchange);
-                    cmd.Parameters.AddWithValue("@LegSymbol3", report.legInstrumentGrps[2].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[2].LegSide.ToString());
+                    cmd.Parameters.AddWithValue("@LegSide3", report.legInstrumentGrps[2].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[2].LegSide.ToString());
                     cmd.Parameters.AddWithValue("@LegPutOrCall3", report.legInstrumentGrps[2].LegPutOrCall);
                     cmd.Parameters.AddWithValue("@LegOrderQty3", report.legInstrumentGrps[2].LegOrderQty);
                     cmd.Parameters.AddWithValue("@LegRefID3", report.legInstrumentGrps[2].LegRefID == null ? String.Empty : report.legInstrumentGrps[2].LegRefID);
@@ -151,7 +163,7 @@ namespace SgxICIDropCopyAdapter.DataHandler
                     cmd.Parameters.AddWithValue("@LegMaturityDate4", report.legInstrumentGrps[3].LegMaturityDate == null ? String.Empty : report.legInstrumentGrps[3].LegMaturityDate);
                     cmd.Parameters.AddWithValue("@LegStrikePrice4", report.legInstrumentGrps[3].LegStrikePrice);
                     cmd.Parameters.AddWithValue("@LegSecurityExchange4", report.legInstrumentGrps[3].LegSecurityExchange == null ? String.Empty : report.legInstrumentGrps[3].LegSecurityExchange);
-                    cmd.Parameters.AddWithValue("@LegSymbol4", report.legInstrumentGrps[3].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[3].LegSide.ToString());
+                    cmd.Parameters.AddWithValue("@LegSide4", report.legInstrumentGrps[3].LegSide == '\0' ? String.Empty : report.legInstrumentGrps[3].LegSide.ToString());
                     cmd.Parameters.AddWithValue("@LegPutOrCall4", report.legInstrumentGrps[3].LegPutOrCall);
                     cmd.Parameters.AddWithValue("@LegOrderQty4", report.legInstrumentGrps[3].LegOrderQty);
                     cmd.Parameters.AddWithValue("@LegRefID4", report.legInstrumentGrps[3].LegRefID == null ? String.Empty : report.legInstrumentGrps[3].LegRefID);

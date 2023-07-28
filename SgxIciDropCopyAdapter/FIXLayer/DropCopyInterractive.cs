@@ -22,7 +22,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
         public ClientSocket clientSocket;
         public DateTime _lastReceivedDataTime;
         StringBuilder _dataBuilder;
-        public Timer tmrHeartbeat;
+        Timer tmrHeartbeat;
         MessageHeader messageHeader;
         OutSequanceNo outSequanceNo;
         InSequanceNo inSequanceNo;
@@ -53,7 +53,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
             clientSocket.OnSocketDisconnect += ClientSocket_OnSocketDisconnect;
             clientSocket.OnSocketError += ClientSocket_OnSocketError;
             clientSocket.OnSocketDataArrival += ClientSocket_OnSocketDataArrival;
-            //to do
+
             string ip = ConfigurationManager.AppSettings["DropCopy_IP"];
             int port = Convert.ToInt32(ConfigurationManager.AppSettings["DropCopy_Port"]);
             clientSocket.Connect(ip, port);
@@ -128,13 +128,15 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                                 AppGlobal.UpdateAppSetting("Password", ConfigurationManager.AppSettings["NewPassword"]);
                             }
                         }
-                        Console.WriteLine("Password expiry date : " + logOn.PwdExpireDate);
+                        Console.WriteLine($"Password expiry date : {logOn.PwdExpireDate}");
                         if (AppGlobal.DashboardCommunication != null)
                             AppGlobal.DashboardCommunication.SendConnectionStatustoDashboard();
                         break;
 
                     case FIXMessageType.Logout:
                         Logout logOut = new Logout(data);
+
+                        //todo
                         if (logOut.Text != "Session is already connected ")
                             CheckInMessageSequenceNo(logOut.MsgSeqNum, logOut.PossDupFlag);
 
@@ -145,8 +147,10 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                                 outSequanceNo.OutboundMessageSequence = Convert.ToInt32(sequence[4].Trim()) - 1;
                             outSequanceNo.Write();
                         }
-                        Console.WriteLine("Session logout : " + logOut.Text);
-                        AppGlobal.loger.Info("Session logout : " + logOut.Text);
+
+                        string logoutmsg = $"Session logout : {logOut.Text} ";
+                        Console.WriteLine(logoutmsg);
+                        AppGlobal.loger.Info(logoutmsg);
                         CloseConnection();
                         break;
 
@@ -189,16 +193,14 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                         {
                             CheckInMessageSequenceNo(sequenceReset.MsgSeqNum, sequenceReset.PossDupFlag);
                         }
-                        AppGlobal.loger.Info("SequenceReset with NewSeqNo : " + sequenceReset.NewSeqNo + " received from SGX");
+                        AppGlobal.loger.Info($"SequenceReset with NewSeqNo : {sequenceReset.NewSeqNo} received from SGX");
                         break;
 
                     case FIXMessageType.Reject:
                         SessionLevelReject sessionLevelReject = new SessionLevelReject(data);
                         CheckInMessageSequenceNo(sessionLevelReject.MsgSeqNum, sessionLevelReject.PossDupFlag);
 
-                        string error = "Session Rejected! Type: " + FIXMethods.GetRejectionReason(sessionLevelReject.SessionRejectReason)
-                                       + " Reason: " + sessionLevelReject.Text.Trim();
-
+                        string error = $"Session Rejected! Type: {FIXMethods.GetRejectionReason(sessionLevelReject.SessionRejectReason)} Reason: {sessionLevelReject.Text.Trim()}";
                         AppGlobal.loger.Info(error);
                         break;
 
@@ -224,7 +226,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                         break;
                 }
 
-                Console.WriteLine(DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt") + " << " + SgxICIDropCopy.API.FIXMessageType.GetMsgType(Processed.Header.MsgType) + " from Exchange.");
+                Console.WriteLine($"{DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt")}  << {SgxICIDropCopy.API.FIXMessageType.GetMsgType(Processed.Header.MsgType)} from Exchange.");
             }
             catch (Exception ex)
             {
@@ -362,7 +364,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                 resendrequest.BeginSeqNo = BeginSeqNo;
                 resendrequest.EndSeqNo = EndSeqNo;
                 SendData(resendrequest);
-                AppGlobal.loger.Info("Send ResendRequest to SGXwith BeginSeqNo : " + BeginSeqNo + " EndSeqNo : " + EndSeqNo);
+                AppGlobal.loger.Info($"Send ResendRequest to SGX with BeginSeqNo : {BeginSeqNo} EndSeqNo {EndSeqNo}");
             }
             catch (Exception ex)
             {
@@ -396,16 +398,6 @@ namespace SgxICIDropCopyAdapter.FIXLayer
             AppGlobal.loger.Info("Send SequenceReset to SGX");
         }
 
-        //public void SendOrderStatusRequest(string Account, string clOrdId, string orderId)
-        //{
-        //    OrderStatusRequest objOrderStatusRequest = new OrderStatusRequest(messageHeader);
-        //    objOrderStatusRequest.Account = Account;
-        //    objOrderStatusRequest.ClOrdId = clOrdId;
-        //    objOrderStatusRequest.OrderId = orderId;
-        //    SendData(objOrderStatusRequest);
-
-        //}
-
         private object locksend = new object();
         private void SendData(iDataInterface data)
         {
@@ -420,7 +412,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     }
                     clientSocket.Send(Encoding.ASCII.GetBytes(data.Data.ToCharArray()));
                     AppGlobal.logerFix.Debug(data.Data);
-                    Console.WriteLine(DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt") + " >> " + SgxICIDropCopy.API.FIXMessageType.GetMsgType(data.MsgType) + " to Exchange.");
+                    Console.WriteLine($"{DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt")} >> {SgxICIDropCopy.API.FIXMessageType.GetMsgType(data.MsgType)} to Exchange.");
                 }
             }
             catch (Exception ex)

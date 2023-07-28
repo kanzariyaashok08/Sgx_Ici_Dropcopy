@@ -30,7 +30,6 @@ namespace SgxICIDropCopyAdapter.GlobalClass
         public static Timer tmrAutologon;
         static AppGlobal()
         {
-            var config = ConfigurationManager.ConnectionStrings["DropCopy_IP"];
             object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
             if (attributes.Length == 0)
                 AssemblyProduct = "SgxICIDropCopy";

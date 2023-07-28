@@ -47,8 +47,6 @@ namespace SgxICIDropCopyAdapter.DataHandler
                         ExecutionReport executionReport = null;
                         ExecutionReportQueue.TryDequeue(out executionReport);
                         AppGlobal.dBHelper.InsertOrderdata(executionReport);                        
-                        //AppGlobal.loger.Info("Queue Counter : " + ExecutionReportQueue.Count + " Exe MsgSeqNo : " + executionReport.MsgSeqNum);
-
                     }
                     else
                         ExecutionReportEWH.WaitOne(1);

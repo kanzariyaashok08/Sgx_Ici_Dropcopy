@@ -18,18 +18,12 @@ namespace SgxICIDropCopyAdapter.GlobalClass
             if (!Directory.Exists(AppGlobal.SequencePath)) Directory.CreateDirectory(AppGlobal.SequencePath);
             this.sFileName = AppGlobal.SequencePath + filename + "_Inbound.txt";
             FileInfo fi = new FileInfo(sFileName);
-            //Due to non persistant mode
+
+            //Due to non persistant mode sequence reseat daily basis
             if (fi.Exists && fi.LastWriteTime.Date != DateTime.Now.Date)
             {
-                DayOfWeek day = DateTime.Now.DayOfWeek;
-                int days = day - DayOfWeek.Monday;
-                DateTime start = DateTime.Now.AddDays(-days);
-                DateTime end = start.AddDays(5);
-
-                if (start.Date == DateTime.Now.Date || (start.Date <= DateTime.Now.Date && end.Date <= DateTime.Now.Date) || (DateTime.Now.Date.Day - fi.LastWriteTime.Date.Day) >= 7)
-                    fi.Delete();
+                fi.Delete();
             }
-
 
         }
 
