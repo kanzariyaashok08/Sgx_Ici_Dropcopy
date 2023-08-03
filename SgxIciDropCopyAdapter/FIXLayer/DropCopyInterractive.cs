@@ -144,8 +144,11 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                         {
                             string[] sequence = logOut.Text.Split(' ');
                             if (sequence.Length >= 7)
-                                outSequanceNo.OutboundMessageSequence = Convert.ToInt32(sequence[4].Trim()) - 1;
-                            outSequanceNo.Write();
+                            {
+                                var seq = sequence[7].Substring(0, sequence[7].Length - 1);
+                                outSequanceNo.OutboundMessageSequence = Convert.ToInt32(seq) - 1;
+                                outSequanceNo.Write();
+                            }
                         }
 
                         string logoutmsg = $"Session logout : {logOut.Text} ";
@@ -202,6 +205,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
 
                         string error = $"Session Rejected! Type: {FIXMethods.GetRejectionReason(sessionLevelReject.SessionRejectReason)} Reason: {sessionLevelReject.Text.Trim()}";
                         AppGlobal.loger.Info(error);
+                        Console.WriteLine(error);
                         break;
 
                     case FIXMessageType.ExecutionReport:
@@ -219,6 +223,9 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     case FIXMessageType.OrderCancelReject:
                         OrderCancelReject orderCancelReject = new OrderCancelReject(data);
                         CheckInMessageSequenceNo(orderCancelReject.MsgSeqNum, orderCancelReject.PossDupFlag);
+
+                        if (!string.IsNullOrEmpty(orderCancelReject.Text))
+                            Console.WriteLine($"Order rejection reson {orderCancelReject.Text}");
                         break;
 
                     default:

@@ -1,0 +1,4 @@
+﻿Build started...
+1>------ Build started: Project: SgxIciDropCopyAdapter, Configuration: Debug Any CPU ------
+1>  SgxIciDropCopyAdapter -> D:\MyWork\SGX_Gift_DropCopy\SGX_ICI_DropCopy\SgxIciDropCopyAdapter\bin\Debug\SgxIciDropCopyAdapter.exe
+========== Build: 1 succeeded, 0 failed, 1 up-to-date, 0 skipped ==========

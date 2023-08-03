@@ -1,5 +1,11 @@
-bin/
+/**/bin/**/*
+/./**/bin/**/*
+./**/bin/**/*
+**/bin/**/*
+*/bin/**/*
+bin/**/*
+/**/bin/*
 logs/
 packages/
-/.vs
+.vs/
 *.suo

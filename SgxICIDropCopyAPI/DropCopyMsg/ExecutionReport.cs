@@ -225,7 +225,6 @@ namespace SgxICIDropCopy.DropCopyMsg
                             MaturityDate = value;
                             break;
 
-
                         case FIXTAG.PutOrCall:
                             PutOrCall = Convert.ToInt32(value);
                             break;
