@@ -290,7 +290,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
 
                 if (AppGlobal.isFullDownload)
                 {
-                    inSequanceNo.InboundMessageSequence = 0;
+                    inSequanceNo.InboundMessageSequence = 1;
                     inSequanceNo.Write();
                     AppGlobal.isFullDownload = false;
                 }
@@ -311,8 +311,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     outSequanceNo.Write();
                 }
 
-                if (inSequanceNo.InboundMessageSequence > 0)
-                    inSequanceNo.InboundMessageSequence = --inSequanceNo.InboundMessageSequence;
+                
 
                 SendData(logon);
             }
