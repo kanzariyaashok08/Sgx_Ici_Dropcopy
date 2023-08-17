@@ -56,6 +56,15 @@ namespace SgxICIDropCopyAdapter.FIXLayer
 
             string ip = ConfigurationManager.AppSettings["DropCopy_IP"];
             int port = Convert.ToInt32(ConfigurationManager.AppSettings["DropCopy_Port"]);
+
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewPassword"]) && !AppGlobal.IsValidPassword(ConfigurationManager.AppSettings["NewPassword"]))
+            {
+                string pwspolicy = "The password should be of at least 14 characters in length, 1 upper case letter and 1 lower case letter and 1 number and 1 special character";
+                Console.WriteLine(pwspolicy);
+                AppGlobal.loger.Info(pwspolicy);
+                return;
+            }
+
             clientSocket.Connect(ip, port);
             AppGlobal.dBHelper = new DBHelper();
             AppGlobal.executionReportQ = new ExecutionReportQ();
@@ -311,7 +320,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     outSequanceNo.Write();
                 }
 
-                
+
 
                 SendData(logon);
             }

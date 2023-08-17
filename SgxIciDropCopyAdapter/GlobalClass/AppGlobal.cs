@@ -11,6 +11,7 @@ using System.Reflection;
 using SgxICIDropCopyAdapter.DataHandler;
 using System.Timers;
 using SgxICIDropCopyAdapter.Dashboard;
+using System.Text.RegularExpressions;
 
 namespace SgxICIDropCopyAdapter.GlobalClass
 {
@@ -89,5 +90,15 @@ namespace SgxICIDropCopyAdapter.GlobalClass
             }
         }
 
+        public static bool IsValidPassword(string input)
+        {           
+            Regex validateGuidRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{14,25}$");
+            if (validateGuidRegex.IsMatch(input))
+            {
+                return true;
+            }
+            else
+                return false;            
+        }
     }
 }

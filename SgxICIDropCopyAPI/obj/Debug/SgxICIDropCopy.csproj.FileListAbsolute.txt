@@ -8,3 +8,4 @@ D:\MyWork\SGX_Gift_DropCopy\SGX_ICI_DropCopy\SgxICIDropCopyAPI\bin\Debug\SgxICID
 D:\MyWork\SGX_Gift_DropCopy\SGX_ICI_DropCopy\SgxICIDropCopyAPI\obj\Debug\SgxICIDropCopy.csproj.CoreCompileInputs.cache
 D:\MyWork\SGX_Gift_DropCopy\SGX_ICI_DropCopy\SgxICIDropCopyAPI\obj\Debug\SgxICIDropCopy.dll
 D:\MyWork\SGX_Gift_DropCopy\SGX_ICI_DropCopy\SgxICIDropCopyAPI\obj\Debug\SgxICIDropCopy.pdb
+D:\MyWork\SGX_Gift_DropCopy\SGX_ICI_DropCopy\SgxICIDropCopyAPI\obj\Debug\SgxICIDropCopy.csproj.AssemblyReference.cache
