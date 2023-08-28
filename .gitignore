@@ -1,5 +1,7 @@
 SgxIciDropCopyAdapter/bin/*
 SgxIciDropCopyAdapter/obj/*
+SgxICIDropCopyAPI/bin/*
+SgxICIDropCopyAPI/obj/*
 packages/
 .vs/
 *.suo
