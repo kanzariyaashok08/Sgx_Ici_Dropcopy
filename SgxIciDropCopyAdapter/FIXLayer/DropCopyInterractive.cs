@@ -56,7 +56,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
 
             string ip = ConfigurationManager.AppSettings["DropCopy_IP"];
             int port = Convert.ToInt32(ConfigurationManager.AppSettings["DropCopy_Port"]);
-
+            AppGlobal.logerFix.Debug("DropCopy Source Ip" + ip + " Port " + port);
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewPassword"]) && !AppGlobal.IsValidPassword(ConfigurationManager.AppSettings["NewPassword"]))
             {
                 string pwspolicy = "The password should be of at least 14 characters in length, 1 upper case letter and 1 lower case letter and 1 number and 1 special character";
@@ -440,7 +440,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
         {
             try
             {
-                if (++inSequanceNo.InboundMessageSequence < MessageSequenceNo && !PossDupFlag && !isResendRequest)
+                if (inSequanceNo.InboundMessageSequence < MessageSequenceNo && !PossDupFlag && !isResendRequest)
                 {
                     SendResendRequest(inSequanceNo.InboundMessageSequence - 1, 0);
                 }

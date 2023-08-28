@@ -45,7 +45,7 @@ namespace SgxICIDropCopyAdapter.DataHandler
                 cmd.Parameters.AddWithValue("@MaturityDate", report.MaturityDate == null ? String.Empty : report.MaturityDate);
                 cmd.Parameters.AddWithValue("@StrikePrice", report.StrikePrice);
                 cmd.Parameters.AddWithValue("@SecurityType", report.SecurityType == null ? String.Empty : report.SecurityType);
-                if (!string.IsNullOrEmpty(report.SecurityType) && report.SecurityType.ToLower() == "opt" || report.SecurityType.ToLower() == "option")
+                if (!string.IsNullOrEmpty(report.SecurityType) && (report.SecurityType.ToLower() == "opt" || report.SecurityType.ToLower() == "option"))
                     cmd.Parameters.AddWithValue("@PutOrCall", report.PutOrCall);
                 else
                     cmd.Parameters.AddWithValue("@PutOrCall", String.Empty);

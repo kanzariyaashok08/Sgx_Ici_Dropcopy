@@ -1,11 +1,9 @@
-/**/bin/**/*
-/./**/bin/**/*
-./**/bin/**/*
-**/bin/**/*
-*/bin/**/*
-bin/**/*
-/**/bin/*
-logs/
+./SgxICIDropCopyAPI/bin/
+./SgxICIDropCopyAPI/obj/
+./SgxIciDropCopyAdapter/bin/
+./SgxIciDropCopyAdapter/obj/
+bin/
 packages/
 .vs/
+**/.vs/
 *.suo
