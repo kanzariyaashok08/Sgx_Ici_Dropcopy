@@ -1,18 +1,14 @@
 ﻿using AarnaNetworkSocket;
-using log4net;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using SgxICIDropCopy.API;
 using SgxICIDropCopy.DropCopyMsg;
 using SgxICIDropCopy.SessionMsg;
 using SgxICIDropCopyAdapter.DataHandler;
 using SgxICIDropCopyAdapter.GlobalClass;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Text;
+using System.Timers;
 
 namespace SgxICIDropCopyAdapter.FIXLayer
 {
@@ -56,7 +52,9 @@ namespace SgxICIDropCopyAdapter.FIXLayer
 
             string ip = ConfigurationManager.AppSettings["DropCopy_IP"];
             int port = Convert.ToInt32(ConfigurationManager.AppSettings["DropCopy_Port"]);
+
             AppGlobal.logerFix.Debug("DropCopy Source Ip" + ip + " Port " + port);
+
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewPassword"]) && !AppGlobal.IsValidPassword(ConfigurationManager.AppSettings["NewPassword"]))
             {
                 string pwspolicy = "The password should be of at least 14 characters in length, 1 upper case letter and 1 lower case letter and 1 number and 1 special character";
@@ -69,7 +67,6 @@ namespace SgxICIDropCopyAdapter.FIXLayer
             AppGlobal.dBHelper = new DBHelper();
             AppGlobal.executionReportQ = new ExecutionReportQ();
         }
-
 
         private void tmrHeartbeat_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -126,7 +123,6 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                         CheckInMessageSequenceNo(logOn.MsgSeqNum, logOn.PossDupFlag);
                         Console.WriteLine("Logon successful.!");
 
-
                         //Password update in AppSetting after successful changed.
                         if (logOn.SessionStatus == 1)
                         {
@@ -137,7 +133,9 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                                 AppGlobal.UpdateAppSetting("Password", ConfigurationManager.AppSettings["NewPassword"]);
                             }
                         }
+
                         Console.WriteLine($"Password expiry date : {logOn.PwdExpireDate}");
+
                         if (AppGlobal.DashboardCommunication != null)
                             AppGlobal.DashboardCommunication.SendConnectionStatustoDashboard();
                         break;
@@ -145,7 +143,6 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     case FIXMessageType.Logout:
                         Logout logOut = new Logout(data);
 
-                        //todo
                         if (logOut.Text != "Session is already connected ")
                             CheckInMessageSequenceNo(logOut.MsgSeqNum, logOut.PossDupFlag);
 
@@ -242,7 +239,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                         break;
                 }
 
-                Console.WriteLine($"{DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt")}  << {SgxICIDropCopy.API.FIXMessageType.GetMsgType(Processed.Header.MsgType)} from Exchange.");
+                Console.WriteLine($"{DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt")}  << {SgxICIDropCopy.API.FIXMessageType.GetMsgType(Processed.Header.MsgType)} from SGX Exchange.");
             }
             catch (Exception ex)
             {
@@ -319,8 +316,6 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     outSequanceNo.OutboundMessageSequence = 0;//
                     outSequanceNo.Write();
                 }
-
-
 
                 SendData(logon);
             }
@@ -427,7 +422,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                     }
                     clientSocket.Send(Encoding.ASCII.GetBytes(data.Data.ToCharArray()));
                     AppGlobal.logerFix.Debug(data.Data);
-                    Console.WriteLine($"{DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt")} >> {SgxICIDropCopy.API.FIXMessageType.GetMsgType(data.MsgType)} to Exchange.");
+                    Console.WriteLine($"{DateTime.Now.ToString("dd-MMM-yyyy HH mm ss ttt")} >> {SgxICIDropCopy.API.FIXMessageType.GetMsgType(data.MsgType)} to SGX Exchange.");
                 }
             }
             catch (Exception ex)
