@@ -113,7 +113,8 @@ namespace SgxICIDropCopyAdapter.Dashboard
         }
         private string GetConnectionStatus()
         {
-             return System.DateTime.Now + "|2|SGXICI|" + (AppGlobal.dropCopyInterractive.isLoggedIn == true ? "Session LogIn" : "Session LogOut") + "<EOF>";            
+             return System.DateTime.Now + "|2|"+ ConfigurationManager.AppSettings["DashboardUserID"] + "|" + (AppGlobal.dropCopyInterractive.isLoggedIn == true ? "Session LogIn" : "Session LogOut") + "<EOF>";
+           // return System.DateTime.Now + "|2|SGXICI|" + (AppGlobal.dropCopyInterractive.isLoggedIn == true ? "Session LogIn" : "Session LogOut") + "<EOF>";
         }
 
         private void SessionLogonRequest()

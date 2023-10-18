@@ -267,7 +267,7 @@ namespace SgxICIDropCopy.DropCopyMsg
 
                         case FIXTAG.StopPx:
                             StopPx = Convert.ToDecimal(value);
-                            break;                            
+                            break;
 
                         case FIXTAG.DisplayQty:
                             DisplayQty = Convert.ToInt32(value);
@@ -353,6 +353,13 @@ namespace SgxICIDropCopy.DropCopyMsg
                             Text = value;
                             break;
 
+                        case FIXTAG.customerinfo1:
+                            customerinfo1 = value;
+                            break;
+
+                        case FIXTAG.customerinfo2:
+                            customerinfo2 = value;
+                            break;
                     }
                 }
             }

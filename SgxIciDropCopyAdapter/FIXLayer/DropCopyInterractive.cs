@@ -313,7 +313,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
                 {
                     inSequanceNo.InboundMessageSequence = 0;
                     inSequanceNo.Write();
-                    outSequanceNo.OutboundMessageSequence = 0;//
+                    outSequanceNo.OutboundMessageSequence = 0;
                     outSequanceNo.Write();
                 }
 
