@@ -371,7 +371,7 @@ namespace SgxICIDropCopyAdapter.FIXLayer
             {
                 isResendRequest = true;
                 ResendRequest resendrequest = new ResendRequest(messageHeader);
-                resendrequest.BeginSeqNo = BeginSeqNo;
+                resendrequest.BeginSeqNo = BeginSeqNo <= 0 ? 1 : BeginSeqNo;
                 resendrequest.EndSeqNo = EndSeqNo;
                 SendData(resendrequest);
                 AppGlobal.loger.Info($"Send ResendRequest to SGX with BeginSeqNo : {BeginSeqNo} EndSeqNo {EndSeqNo}");
